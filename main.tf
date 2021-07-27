@@ -80,7 +80,7 @@ module "bastion" {
 
 
 module "blue" {
-  source                   = "./bluemodule"
+  source                   = "./frontendmodule"
   ibm_region               = var.ibm_region
   unique_id                = var.vpc_name
   ibm_is_vpc_id            = module.vpc.vpc_id
@@ -97,7 +97,7 @@ module "blue" {
 }
 
 module "green" {
-  source                   = "./greenmodule"
+  source                   = "./backendmodule"
   ibm_region               = var.ibm_region
   unique_id                = var.vpc_name
   ibm_is_vpc_id            = module.vpc.vpc_id
