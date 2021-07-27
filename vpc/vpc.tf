@@ -66,7 +66,7 @@ resource "ibm_is_subnet" "blue_subnet" {
   zone            = "${var.ibm_region}-${count.index % 3 + 1}"
   ipv4_cidr_block = var.blue_cidr_blocks[count.index]
   #network_acl     = "${ibm_is_network_acl.multizone_acl.id}"
-  public_gateway = ibm_is_public_gateway.repo_gateway[count.index].id
+  #public_gateway = ibm_is_public_gateway.repo_gateway[count.index].id
   depends_on     = [ibm_is_vpc_address_prefix.blue_subnet_prefix]
 }
 
@@ -78,7 +78,7 @@ resource "ibm_is_subnet" "green_subnet" {
   zone            = "${var.ibm_region}-${count.index % 3 + 1}"
   ipv4_cidr_block = var.green_cidr_blocks[count.index]
   #network_acl     = "${ibm_is_network_acl.multizone_acl.id}"
-  public_gateway = ibm_is_public_gateway.repo_gateway[count.index].id
+  #public_gateway = ibm_is_public_gateway.repo_gateway[count.index].id
   depends_on     = [ibm_is_vpc_address_prefix.green_subnet_prefix]
 }
 
