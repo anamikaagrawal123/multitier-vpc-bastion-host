@@ -31,7 +31,12 @@ data "external" "env" { program = ["jq", "-n", "env"] }
 locals {
   region = lookup(data.external.env.result, "TF_VAR_SCHEMATICSLOCATION", "")
   geo    = substr(local.region, 0, 2)
-  bastion_ingress_cidr  = "0.0.0.0/0" 
+  schematics_ssh_access_map = {
+    us = ["169.44.0.0/14", "169.60.0.0/14"],
+    eu = ["158.175.0.0/16","158.176.0.0/15"],
+  }
+  schematics_ssh_access = lookup(["0.0.0.0/0"], local.geo, ["0.0.0.0/0"])
+  bastion_ingress_cidr  = var.ssh_source_cidr_override[0] != "0.0.0.0/0" ? var.ssh_source_cidr_override : local.schematics_ssh_access
 }
 
 
