@@ -38,31 +38,6 @@ resource "ibm_is_instance" "green-server" {
 # 
 ##############################################################################
 
-resource "ibm_is_lb_pool" "vsi-blue-green-lb-pool" {
-  lb                 = ibm_is_lb.vsi-blue-green-lb.id
-  name               = "vsi-blue-green-lb-pool"
-  protocol           = "http"
-  algorithm          = "round_robin"
-  health_delay       = "5"
-  health_retries     = "2"
-  health_timeout     = "2"
-  health_type        = "http"
-  health_monitor_url = "/"
-  depends_on         = [ibm_is_lb.vsi-blue-green-lb]
-}
-
-resource "ibm_is_lb_pool_member" "vsi-blue-green-lb-pool-member-zone1" {
-  count          = var.green_count
-  lb             = ibm_is_lb.vsi-blue-green-lb.id
-  pool           = element(split("/", ibm_is_lb_pool.vsi-blue-green-lb-pool.id), 1)
-  port           = "8080"
-  target_address = ibm_is_instance.green-server[count.index].primary_network_interface[0].primary_ipv4_address
-  depends_on     = [ibm_is_lb_pool.vsi-blue-green-lb-pool]
-}
-
-
-
-
 
 # this is the SG applied to the green instances
 resource "ibm_is_security_group" "green" {
