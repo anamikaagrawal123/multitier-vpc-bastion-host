@@ -86,25 +86,3 @@ resource "ibm_is_subnet" "green_subnet" {
 
 
 
-# Increase count to create gateways in all zones
-resource "ibm_is_public_gateway" "repo_gateway" {
-  count = var.blue_count
-  name  = "${var.unique_id}-public-gtw-${count.index}"
-  vpc   = ibm_is_vpc.vpc.id
-  zone  = "${var.ibm_region}-${count.index % 3 + 1}"
-
-  //User can configure timeouts
-  timeouts {
-    create = "90m"
-  }
-}
-
-
-
-
-
-#############################################################################
-
-
-
-
