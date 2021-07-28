@@ -62,9 +62,9 @@ resource "ibm_is_lb_listener" "vsi-blue-green-lb-listener" {
   depends_on   = [ibm_is_lb_pool.vsi-blue-green-lb-pool]
 }
 
-resource "ibm_is_lb_pool" "vsi-blue-green-lb-pool" {
+resource "ibm_is_lb_pool" "vsi-blue-lb-pool" {
   lb                 = ibm_is_lb.vsi-blue-green-lb.id
-  name               = "vsi-blue-green-lb-pool"
+  name               = "vsi-blue-lb-pool"
   protocol           = "http"
   algorithm          = "round_robin"
   health_delay       = "5"
@@ -75,13 +75,13 @@ resource "ibm_is_lb_pool" "vsi-blue-green-lb-pool" {
   depends_on         = [ibm_is_lb.vsi-blue-green-lb]
 }
 
-resource "ibm_is_lb_pool_member" "vsi-blue-green-lb-pool-member-zone1" {
+resource "ibm_is_lb_pool_member" "vsi-blue-lb-pool-member-zone1" {
   count          = var.blue_count
   lb             = ibm_is_lb.vsi-blue-green-lb.id
-  pool           = element(split("/", ibm_is_lb_pool.vsi-blue-green-lb-pool.id), 1)
+  pool           = element(split("/", ibm_is_lb_pool.vsi-blue-lb-pool.id), 1)
   port           = "8080"
   target_address = ibm_is_instance.blue-server[count.index].primary_network_interface[0].primary_ipv4_address
-  depends_on     = [ibm_is_lb_pool.vsi-blue-green-lb-pool]
+  depends_on     = [ibm_is_lb_pool.vsi-blue-lb-pool]
 }
 
 
