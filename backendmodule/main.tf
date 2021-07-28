@@ -114,3 +114,15 @@ resource "ibm_is_security_group_rule" "green_access" {
   }
 }
 
+resource "ibm_is_lb_pool" "vsi-green-lb-pool" {
+  lb                 = ibm_is_lb.vsi-blue-green-lb.id
+  name               = "vsi-green-lb-pool"
+  protocol           = "http"
+  algorithm          = "round_robin"
+  health_delay       = "5"
+  health_retries     = "2"
+  health_timeout     = "2"
+  health_type        = "http"
+  health_monitor_url = "/"
+  depends_on         = [ibm_is_lb.vsi-blue-green-lb]
+}
