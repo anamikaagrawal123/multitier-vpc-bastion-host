@@ -5,6 +5,9 @@ variable "unique_id" {
 variable "ibm_is_vpc_id" {
 }
 
+variable "vsi-blue-green-lb" {
+}
+
 # create resources in this resource group id
 variable "ibm_is_resource_group_id" {
 }
