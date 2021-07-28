@@ -112,6 +112,7 @@ module "green" {
   bastion_subnet_CIDR      = var.bastion_cidr
   app_green_sg_id          = module.green.security_group_id
   pub_repo_egress_cidr     = local.pub_repo_egress_cidr
+  vsi-blue-green-lb        = module.blue.vsi-blue-green-lb
 }
 
 module "accesscheck" {
