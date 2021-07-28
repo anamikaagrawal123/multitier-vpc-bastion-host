@@ -58,8 +58,8 @@ resource "ibm_is_lb_listener" "vsi-blue-green-lb-listener" {
   lb           = ibm_is_lb.vsi-blue-green-lb.id
   port         = "80"
   protocol     = "http"
-  default_pool = element(split("/", ibm_is_lb_pool.vsi-blue-green-lb-pool.id), 1)
-  depends_on   = [ibm_is_lb_pool.vsi-blue-green-lb-pool]
+  default_pool = element(split("/", ibm_is_lb_pool.vsi-blue-lb-pool.id), 1)
+  depends_on   = [ibm_is_lb_pool.vsi-blue-lb-pool]
 }
 
 resource "ibm_is_lb_pool" "vsi-blue-lb-pool" {
