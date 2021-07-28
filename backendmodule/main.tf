@@ -129,7 +129,7 @@ resource "ibm_is_lb_pool" "vsi-green-lb-pool" {
 
 resource "ibm_is_lb_pool_member" "vsi-green-lb-pool-member-zone1" {
   count          = var.green_count
-  lb             = var.vsi-blue-green-lb.id
+  lb             = var.vsi-blue-green-lb-id
   pool           = element(split("/", ibm_is_lb_pool.vsi-green-lb-pool.id), 1)
   port           = "8080"
   target_address = ibm_is_instance.green-server[count.index].primary_network_interface[0].primary_ipv4_address
