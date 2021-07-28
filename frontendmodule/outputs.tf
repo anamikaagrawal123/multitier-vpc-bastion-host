@@ -10,3 +10,7 @@ output primary_ipv4_address {
 output lb_hostname {
   value = ibm_is_lb.vsi-blue-green-lb.hostname
 }
+
+output lb_id {
+  value = ibm_is_lb.vsi-blue-green-lb.id
+}
