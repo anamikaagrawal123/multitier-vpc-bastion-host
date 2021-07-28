@@ -127,19 +127,6 @@ resource "ibm_is_lb_pool" "vsi-green-lb-pool" {
   depends_on         = [var.vsi-blue-green-lb]
 }
 
-resource "ibm_is_lb_pool" "vsi-green-lb-pool" {
-  lb                 = var.vsi-blue-green-lb.id
-  name               = "vsi-green-lb-pool"
-  protocol           = "http"
-  algorithm          = "round_robin"
-  health_delay       = "5"
-  health_retries     = "2"
-  health_timeout     = "2"
-  health_type        = "http"
-  health_monitor_url = "/"
-  depends_on         = [var.vsi-blue-green-lb]
-}
-
 resource "ibm_is_lb_pool_member" "vsi-green-lb-pool-member-zone1" {
   count          = var.green_count
   lb             = var.vsi-blue-green-lb.id
