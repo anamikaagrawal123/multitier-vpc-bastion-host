@@ -115,7 +115,7 @@ resource "ibm_is_security_group_rule" "green_access" {
 }
 
 resource "ibm_is_lb_pool" "vsi-green-lb-pool" {
-  lb                 = var.vsi-blue-green-lb.id
+  lb                 = var.vsi-blue-green-lb-id
   name               = "vsi-green-lb-pool"
   protocol           = "http"
   algorithm          = "round_robin"

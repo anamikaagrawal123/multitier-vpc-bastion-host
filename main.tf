@@ -113,7 +113,7 @@ module "green" {
   app_green_sg_id          = module.green.security_group_id
   pub_repo_egress_cidr     = local.pub_repo_egress_cidr
   vsi-blue-green-lb        = module.blue.lb_hostname
-  vsi-blue-green-lb.id        = module.blue.lb_id
+  vsi-blue-green-lb-id     = module.blue.lb_id
 }
 
 module "accesscheck" {
