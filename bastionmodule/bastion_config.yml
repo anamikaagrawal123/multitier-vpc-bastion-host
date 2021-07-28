@@ -13,4 +13,5 @@ runcmd:
   - echo 'PasswordAuthentication no' >> /etc/ssh/sshd_config
   - echo 'UsePAM yes' >> /etc/ssh/sshd_config
   - echo 'AuthenticationMethods publickey' >> /etc/ssh/sshd_config
+  - sed -i "s/AllowTcpForwarding no/AllowTcpForwarding yes/" /etc/ssh/sshd_config
   - service sshd restart
