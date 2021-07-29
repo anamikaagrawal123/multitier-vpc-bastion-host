@@ -84,7 +84,7 @@ resource "ibm_is_subnet" "green_subnet" {
 
 
 resource "ibm_is_public_gateway" "repo_gateway" {
-  count = var.frontend_count
+  count = var.blue_count
   name  = "${var.unique_id}-public-gtw-${count.index}"
   vpc   = ibm_is_vpc.vpc.id
   zone  = "${var.ibm_region}-${count.index % 3 + 1}"
