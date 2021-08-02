@@ -94,7 +94,7 @@ module "blue" {
   bastion_remote_sg_id     = module.bastion.security_group_id
   bastion_subnet_CIDR      = var.bastion_cidr
   pub_repo_egress_cidr     = local.pub_repo_egress_cidr
-  app_blue_sg_id        = module.blue.security_group_id
+  app_blue_sg_id           = module.blue.security_group_id
 }
 
 module "green" {
