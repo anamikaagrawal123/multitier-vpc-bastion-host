@@ -12,8 +12,8 @@ data "ibm_resource_group" "all_rg" {
 }
 
 locals {
-  generation = 2
-  blue_count = 2
+  generation = 1
+  blue_count = 1
   green_count  = 2
 }
 
