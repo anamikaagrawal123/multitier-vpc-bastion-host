@@ -40,7 +40,7 @@ resource "ibm_is_instance" "blue-server" {
 
 
 resource "ibm_is_lb" "vsi-blue-green-lb" {
-  name           = "vsi-blue-green"
+  name           = "${var.unique_id}-alb"
   type           = "public"
   subnets        = toset(var.subnet_ids)
   resource_group = var.ibm_is_resource_group_id
