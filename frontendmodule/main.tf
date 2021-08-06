@@ -53,7 +53,7 @@ locals {
     ["outbound", "0.0.0.0/0", "all", 1, 65535]
   ]
 
-  sg_mappedrules = [
+  alb_sg_mappedrules = [
     for entry in local.alb_sg_rules :
     merge(zipmap(local.alb_sg_keys, entry))
   ]
@@ -61,15 +61,15 @@ locals {
 
 
 resource "ibm_is_security_group_rule" "alb_access" {
-  count     = length(local.sg_mappedrules)
+  count     = length(local.alb_sg_mappedrules)
   group     = ibm_is_security_group.alb.id
-  direction = (local.sg_mappedrules[count.index]).direction
-  remote    = (local.sg_mappedrules[count.index]).remote
+  direction = (local.alb_sg_mappedrules[count.index]).direction
+  remote    = (local.alb_sg_mappedrules[count.index]).remote
   dynamic "tcp" {
-    for_each = local.sg_mappedrules[count.index].type == "tcp" ? [
+    for_each = local.alb_sg_mappedrules[count.index].type == "tcp" ? [
       {
-        port_max = local.sg_mappedrules[count.index].port_max
-        port_min = local.sg_mappedrules[count.index].port_min
+        port_max = local.alb_sg_mappedrules[count.index].port_max
+        port_min = local.alb_sg_mappedrules[count.index].port_min
       }
     ] : []
     content {
@@ -79,10 +79,10 @@ resource "ibm_is_security_group_rule" "alb_access" {
     }
   }
   dynamic "udp" {
-    for_each = local.sg_mappedrules[count.index].type == "udp" ? [
+    for_each = local.alb_sg_mappedrules[count.index].type == "udp" ? [
       {
-        port_max = local.sg_mappedrules[count.index].port_max
-        port_min = local.sg_mappedrules[count.index].port_min
+        port_max = local.alb_sg_mappedrules[count.index].port_max
+        port_min = local.alb_sg_mappedrules[count.index].port_min
       }
     ] : []
     content {
@@ -91,10 +91,10 @@ resource "ibm_is_security_group_rule" "alb_access" {
     }
   }
   dynamic "icmp" {
-    for_each = local.sg_mappedrules[count.index].type == "icmp" ? [
+    for_each = local.alb_sg_mappedrules[count.index].type == "icmp" ? [
       {
-        type = local.sg_mappedrules[count.index].port_max
-        code = local.sg_mappedrules[count.index].port_min
+        type = local.alb_sg_mappedrules[count.index].port_max
+        code = local.alb_sg_mappedrules[count.index].port_min
       }
     ] : []
     content {
