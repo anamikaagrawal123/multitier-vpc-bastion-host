@@ -40,6 +40,7 @@ resource "ibm_is_instance" "blue-server" {
 # this is the SG applied to the alb
 resource "ibm_is_security_group" "alb" {
   name           = "${var.unique_id}-alb-sg"
+  vpc            = var.ibm_is_vpc_id
   resource_group = var.ibm_is_resource_group_id
 }
 
@@ -108,7 +109,7 @@ resource "ibm_is_lb" "vsi-blue-green-lb" {
   name           = "${var.unique_id}-alb"
   type           = "public"
   subnets        = toset(var.subnet_ids)
-  security_groups = "${var.unique_id}-alb-sg"
+  security_groups = [ibm_is_security_group.alb.id]
   resource_group = var.ibm_is_resource_group_id
 
   timeouts {
