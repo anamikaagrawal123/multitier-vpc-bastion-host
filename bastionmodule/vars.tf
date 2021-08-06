@@ -22,12 +22,6 @@ variable "vsi_profile" {
   default = "cx2-2x4"
 }
 
-# VSI image name
-variable "image_name" {
-  description = "Bastion host config scripts have only been tested with Centos"
-  default     = "ibm-centos-8-3-minimal-amd64-3"
-}
-
 data "ibm_is_image" "os" {
   name = var.image_name
 }
