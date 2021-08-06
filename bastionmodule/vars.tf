@@ -17,13 +17,13 @@ variable "ibm_is_resource_group_id" {
 # Bastion host VSI variables
 ##############################################################################
 
+# Id of VSI image 
+variable "ibm_is_image_id" {
+}
+
 # VSI compute profile for bastion host
 variable "vsi_profile" {
   default = "cx2-2x4"
-}
-
-data "ibm_is_image" "os" {
-  name = var.image_name
 }
 
 variable "ssh_key_id" {
