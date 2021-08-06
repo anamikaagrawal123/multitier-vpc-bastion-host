@@ -45,17 +45,17 @@ resource "ibm_is_security_group" "alb" {
 
 
 locals {
-  sg_keys = ["direction", "remote", "type", "port_min", "port_max"]
+  alb_sg_keys = ["direction", "remote", "type", "port_min", "port_max"]
 
 
-  sg_rules = [
+  alb_sg_rules = [
     ["inbound", "0.0.0.0/0", "all", 1, 65535],
     ["outbound", "0.0.0.0/0", "all", 1, 65535]
   ]
 
   sg_mappedrules = [
-    for entry in local.sg_rules :
-    merge(zipmap(local.sg_keys, entry))
+    for entry in local.alb_sg_rules :
+    merge(zipmap(local.alb_sg_keys, entry))
   ]
 }
 

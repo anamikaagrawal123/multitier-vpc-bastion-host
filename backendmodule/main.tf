@@ -33,12 +33,6 @@ resource "ibm_is_instance" "green-server" {
 }
 
 
-##############################################################################
-# Public load balancer
-# 
-##############################################################################
-
-
 # this is the SG applied to the green instances
 resource "ibm_is_security_group" "green" {
   name           = "${var.unique_id}-green-sg"
@@ -109,6 +103,11 @@ resource "ibm_is_security_group_rule" "green_access" {
     }
   }
 }
+
+##############################################################################
+# Public load balancer
+# 
+##############################################################################
 
 resource "ibm_is_lb_pool" "vsi-green-lb-pool" {
   lb                 = var.vsi-blue-green-lb-id
