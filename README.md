@@ -21,9 +21,8 @@ security group configuration, please see the IBM Developer article
 ![Multi-tier VPC with bastion host](https://github.com/anamikaagrawal123/multitier-vpc-bastion-host/blob/master/images/Deployment-Strategies-VSI-Blue-Green-VSI-Blue-Green.jpg)
 
 The example deploys a three tier application environment, with a public facing
-load balancer, a blue app tier for application webservers and a green tier For
-a database server. The two blue servers are deployed across multiple MZR zones to
-demonstrate scaling and HA resilience. The green tier can be optionally provisioned with
+load balancer, a blue app tier for blue pool and a green tier of the blue-green deployment. 
+The one blue and one green servers are deployed. The both tier can be optionally provisioned with
 multiple VSIs across zones.
 
 Public gateways and DNS access is configured to support deployment of opensource application
@@ -43,23 +42,14 @@ by Terraform remote-exec or Redhat Ansible are enabled to access the app VSIs. A
 the public or private networks to the app VSIs is denied.
 
 VPC Security Group and network ACL rules are applied to:
-- Allow only inbound SSH access to the bastion host from Schematics
 - Allow only inbound SSH access to the app VSIs from the bastion host
 - Allow only inbound HTTP access on port 8080 from the public load-balancer to the blue VSIs
-- Allow only inbound Mongodb access on port 27017 from the blue VSIs to the green VSIs
 - Outbound access is enabled for both blue and green VSIs for DNS and software installation
 - All other inbound and outbound traffic to the bastion host and app VSIs is denied by both ACLs and Security groups
 
 To mitigate the security risks of SSH connections over the public network to the
 bastion hosts and VSIs, the network
-Access Control List (ACL) rules and security groups are configured to only
-allow SSH access from the CIDR ranges used by the Schematics service. Access
-from all other public addresses is denied. If SSH access is desired from a public CIDR other than the Schematics service, an input value for
-`ssh_source_cidr_override` should be specified at execution time.
-
-If used with standalone Terraform, `ssh_source_cidr_override` is
-set by default to open access with the CIDR "0.0.0.0/0". To limit access
-to a specific source IP address or CIDR, configure a restrictive CIDR.
+Access Control List (ACL) rules and security groups are configured to allow SSH access to the bastion host.
 
 ### Bastion host SSH configuration
 The example and Terraform modules are supplied 'as is' and only seek to implement a 'reasonable' set of best practices for bastion host configuration.
@@ -87,9 +77,9 @@ The following resources are deployed by this template and may incur
 charges.
 
 - 1 x Floating IP address
-- 2 x Public Gateway
+- 1 x Public Gateway
 - 1 x Load Balancer
-- 4 x VSIs
+- 3 x VSIs
 - 1 x VPC
 - Access Control Lists
 - Security Groups
@@ -124,7 +114,6 @@ defined in the site.yml playbook file.
 | ibm_region | Region of deployed VPC | string | |"us-south" |   |
 |  vpc_name  | Unique VPC name     | string | | "ssh-bastion-host"   |   |
 |  resource_group_name | Name of IBM Cloud Resource Group used for all VPC resources | string | | "Default" |  |
-|  ssh_source_cidr_override |  User specified list of CIDR ranges requiring SSH access. When used with Schematics the default is to allow access only from Schematics, otherwise set to "0.0.0.0/0" | list(string) | | {{Schematics}}  |   |
 |  bastion_cidr | CIDR range for bastion subnets  |  string  | | "172.22.192.0/20"  |   |
 |  blue_cidr |  List of CIDRs the bastion is to route SSH traffic to |  list(string) | | "172.16.0.0/20"  |   |
 |  green_cidr" |  List of CIDRs the bastion is to route SSH traffic to   | list(string) | | "172.17.0.0/20"  |   |
@@ -211,29 +200,13 @@ app_dns_hostname = 2989c099-us-south.lb.appdomain.cloud
 
 ## Validating the VPC security configuration
 
-The default VPC security configuration is to only allow SSH access from
-IP ranges used by IBM Cloud Schematics. Any access from IP addresses
-outside these ranges will be denied.
-
-To validate Schematics has successfully provisioned SSH access, the template can be run with the
-input variable `ssh_accesscheck = true`. This uses Terraform
-remote-exec to SSH onto the deployed VSIs and return the host name. If Schematics cannot
-access the VSIs the Apply will fail with a `timeout` message.  
-
-
-To validate that access is denied from other IP addresses, the following
+To validate that access of the blue or green tier server, the following
 SSH command can be used from a local workstation. Copy and paste the
 command into a terminal session, inserting the returned values for the
 bastion IP and one of the blue VSIs and the path to the file
 containing the private SSH key.
 
 ```
-ssh -i ~/.ssh/<ansible> -o ProxyCommand="ssh -i ~/.ssh/<ansible>
+ssh -i ~/.ssh/<key> -o ProxyCommand="ssh -i ~/.ssh/<ansible>
 -W %h:%p root@52.116.132.26" root@172.16.0.5
-```
-
-The command will return:
-
-```
-ssh: connect to host 52.116.132.26 port 22: Operation timed out
 ```
