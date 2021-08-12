@@ -16,3 +16,4 @@ runcmd:
   - sudo firewall-cmd --zone=public --permanent --add-service=https >> /tmp/t1
   - sudo firewall-cmd --permanent --service=https --add-port=8080/tcp >> /tmp/t1
   - sudo firewall-cmd --reload >> /tmp/t1
+  - sudo firewall-cmd --list-all --zone=public >>/tmp/t1
