@@ -18,7 +18,7 @@ this example. For a detailed explanation of bastion host, ACL and
 security group configuration, please see the IBM Developer article
 [Secure VPC access with a bastion host and Terraform](https://developer.ibm.com/articles/secure-vpc-access-with-a-bastion-host-and-terraform).
 
-![Multi-tier VPC with bastion host](images/multitiervpc.png)
+![Multi-tier VPC with bastion host](https://github.com/anamikaagrawal123/multitier-vpc-bastion-host/blob/master/images/Deployment-Strategies-VSI-Blue-Green-VSI-Blue-Green.jpg)
 
 The example deploys a three tier application environment, with a public facing
 load balancer, a blue app tier for application webservers and a green tier For
