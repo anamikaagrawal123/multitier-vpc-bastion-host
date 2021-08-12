@@ -1,4 +1,4 @@
-# Example VPC with SSH access and Bastion Host for Redhat Ansible
+# Example VPC with SSH access and Bastion Host for Blue-Green Deployment 
 
 This Terraform example for IBM Cloud Schematics illustrates how to
 deploy an IBM Cloud Gen2 VPC with a bastion host to provide secure
@@ -120,7 +120,6 @@ defined in the site.yml playbook file.
 |  vsi_profile | Profile for VSIs deployed in blue and green  | string  | | "cx2-2x4" |  |
 |  image_name |  OS image for VSI deployments. Only tested with Centos | string | | "ibm-centos-7-6-minimal-amd64-1" |  |
 |  ssh_key_name | Name given to public SSH key uploaded to IBM Cloud for VSI access |  string |  ✓   |    |    |     
-|  ssh_accesscheck | Set to "true' if access to VSIs via SSH is to be validated |  string | | "false" |  |
 |  ssh_private_key | Optional private key from key pair. Only required if it desired to validate remote SSH access to the bastion host and VSIs. | string  | | |  ✓   |               
 
 ## Outputs

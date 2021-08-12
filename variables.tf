@@ -30,7 +30,7 @@ variable "resource_group_name" {
 # unique name for the VPC in the account 
 variable "vpc_name" {
   description = "Name of vpc"
-  default     = "vsi-bastion-host"
+  default     = "vsi-deployment"
 }
 
 ##############################################################################
@@ -85,11 +85,6 @@ data "ibm_is_image" "os" {
 ##############################################################################
 # Access check variables
 ##############################################################################
-
-variable "ssh_accesscheck" {
-  description = "Flag to request remote-exec validation of SSH access, true/false"
-  default     = false
-}
 
 variable "ssh_private_key" {
   description = "SSH private key of SSH key pair used for VSIs and Bastion"
