@@ -39,16 +39,6 @@ variable "vpc_name" {
 # Network variables
 ##############################################################################
 
-# When running under Schematics the default here is overriden to only SSH access 
-# from remove-exec or Redhat Ansible running under Schematics 
-
-variable "ssh_source_cidr_override" {
-  type        = list
-  description = "Override CIDR range that is allowed to ssh to the bastion"
-  default     = ["0.0.0.0/0"]
-}
-
-
 locals {
   pub_repo_egress_cidr = "0.0.0.0/0" # cidr range required to contact public software repositories 
 }
