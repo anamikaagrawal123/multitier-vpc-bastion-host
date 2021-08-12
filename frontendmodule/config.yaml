@@ -5,7 +5,13 @@
 # Minimal best practice SSH config    
 
 runcmd:
-  - firewall-cmd --zone=public --permanent --add-service=http
-  - firewall-cmd --zone=public --permanent --add-service=https
-  - firewall-cmd --permanent --service=https --add-port=8080/tcp
-  - firewall-cmd --reload
+  - touch /tmp/t 
+  - chmod 777 /tmp/t 
+  - touch /tmp/t1 
+  - chmod 777 /tmp/t1  
+  - yum install -y tar java > /tmp/t 
+  - sudo systemctl status firewalld
+  - sudo firewall-cmd --zone=public --permanent --add-service=http >> /tmp/t1
+  - sudo firewall-cmd --zone=public --permanent --add-service=https >> /tmp/t1
+  - sudo firewall-cmd --permanent --service=https --add-port=8080/tcp >> /tmp/t1
+  - sudo firewall-cmd --reload >> /tmp/t1
