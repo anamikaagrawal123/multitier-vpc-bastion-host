@@ -7,9 +7,6 @@
 # that will connect via the bastion host
 ##############################################################################
 
-
-
-
 # Generate rules for limiting access to SSH public source subnets/CIDRs 
 # and IBM Cloud private destination subnets/CIDRs
 locals {

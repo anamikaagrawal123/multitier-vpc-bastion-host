@@ -116,11 +116,3 @@ module "green" {
   vsi-blue-green-lb        = module.blue.lb_hostname
   vsi-blue-green-lb-id     = module.blue.lb_id
 }
-
-module "accesscheck" {
-  source          = "./accesscheck"
-  ssh_accesscheck = var.ssh_accesscheck
-  ssh_private_key = var.ssh_private_key
-  bastion_host    = module.bastion.bastion_ip_addresses[0]
-  target_hosts    = concat(module.blue.primary_ipv4_address, module.green.primary_ipv4_address)
-}

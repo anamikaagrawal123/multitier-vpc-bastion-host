@@ -52,6 +52,6 @@ variable "pub_repo_egress_cidr" {
 }
 
 variable "green_count" {
-  description = "number of front end zones"
+  description = "number of blue pool zones"
   default     = 1
 }

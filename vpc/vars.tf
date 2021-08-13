@@ -26,12 +26,12 @@ variable "unique_id" {
 
 
 variable "blue_count" {
-  description = "number of front end zones"
+  description = "number of blue pool zones"
   default     = 1
 }
 
 variable "green_count" {
-  description = "number of back end zones"
+  description = "number of green pool zones"
   default     = 1
 }
 
